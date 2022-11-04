@@ -1,5 +1,5 @@
 from catalyst.utils.run_algo import run_algorithm
-from catalyst.api import symbol
+from catalyst.api import symbol, order
 import pandas as pd
 
 def initialize(context):
@@ -16,6 +16,23 @@ def handle_data(context, data):
     print('Data: {}'.format(data.current_dt))
     print('Poloniex: {}'.format(poloniex_price))
     print('Bittrex: {}'.format(bittrex_price))
+    
+    if (poloniex_price > bittrex_price):
+        print(" Buy on bittrex, sell on poloniex")
+        order(asset=context.bittrex_treading_pair,
+             amount=1,
+             limit_price=bittrex_price)
+        order(asset=context.poloniex_treading_pair,
+             amount=1,
+             limit_price=poloniex_price)
+     elif (bittrex_price > ploniex_price):
+        order(asset=context.bittrex_treading_pair,
+             amount=1,
+             limit_price=bittrex_price)
+        
+        order(asset=context.poloniex_treading_pair,
+             amount=1,
+              limit_price=poloniex_price)
 
 def analyze(context):
     pass
