@@ -2,6 +2,29 @@ from catalyst.utils.run_algo import run_algorithm
 from catalyst.api import symbol, order
 import pandas as pd
 
+def is_profitable_after_fees(sell_price, buy_price, sell_market, buy_market):
+    sell_fee = get_fee(sell_market, sell_price)
+    buy_fee = get_fee(buy_market, buy_price)
+    expected_profit = sell_price - buy_price - sell_fee - buy_fee
+    
+    if expected_profit > 0:
+        print("Sell {} at {}, Buy {} at {}".format(sell_market.name, sell_price)
+              print("Total fees: {}".format(buy_fee + sell_fee))
+              print("Expected profit: {}".format(expected_profit))
+              return True
+         return false
+
+def get_fee(market, price):
+    return round(market.api.fees['trading']['taker'] * price, 5)
+
+def 
+
+def get_adjusted_prices(price, slippage):
+    adj_sell_price = price * (1 - slippage)
+    adj_buy_price = price * (1 + slippage)
+    return adj_sell_price, adj_buy_price
+    
+
 def initialize(context):
     context.bittrex = context.exchanges['bitfinex']
     context.poloniex = context.exchanges['poloniex']
